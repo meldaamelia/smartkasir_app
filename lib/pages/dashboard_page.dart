@@ -114,14 +114,14 @@ class _DashboardPageState extends State<DashboardPage> {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [Color(0xFF1E3A8A), Color(0xFF3B82F6)],
+                colors: [Colors.teal, Color(0xFF26A69A)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.blue.withOpacity(0.25),
+                  color: Colors.teal.withOpacity(0.25),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
@@ -191,7 +191,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   child: FilterChip(
                     label: Text(_kategoriList[index]),
                     selected: isSelected,
-                    selectedColor: const Color(0xFF1E3A8A),
+                    selectedColor: Colors.teal,
                     labelStyle: TextStyle(
                       color: isSelected ? Colors.white : Colors.black87,
                       fontWeight: isSelected
@@ -336,7 +336,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       Text(
                                         _formatRupiah(produk.harga),
                                         style: TextStyle(
-                                          color: Colors.blue.shade900,
+                                          color: Colors.teal.shade900,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
                                         ),
@@ -350,7 +350,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                           radius: 14,
                                           backgroundColor: produk.stok == 0
                                               ? Colors.grey.shade300
-                                              : const Color(0xFF1E3A8A),
+                                              : Colors.teal,
                                           child: const Icon(
                                             Icons.add,
                                             color: Colors.white,

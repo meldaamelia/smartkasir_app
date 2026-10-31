@@ -52,7 +52,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1E3A8A),
+      backgroundColor: Colors.teal,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +74,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
               child: const Icon(
                 Icons.point_of_sale_rounded,
                 size: 72,
-                color: Color(0xFF1E3A8A),
+                color: Colors.teal,
               ),
             ),
             const SizedBox(height: 24),
@@ -117,7 +117,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             // FOOTER
             Text(
               'Versi 1.0.0 — Modul Pertemuan 10',
-              style: TextStyle(fontSize: 11, color: Colors.blue.shade200),
+              style: TextStyle(fontSize: 11, color: Colors.teal.shade200),
             ),
           ],
         ),
