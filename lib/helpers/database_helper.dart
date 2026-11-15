@@ -88,7 +88,7 @@ class DatabaseHelper {
     ''');
     await db.rawInsert('''
     INSERT INTO karyawan (nama_karyawan, pin, peran)
-    VALUES ('Siti Supervisor', '8888', 'Manajer')
+    VALUES ('Siti Supervisor', '8888', 'Supervisor')
     ''');
   }
 
@@ -109,6 +109,10 @@ class DatabaseHelper {
       INSERT INTO karyawan (nama_karyawan, pin, peran)
       VALUES ('Ahmad Kasir', '1234', 'Kasir')
       ''');
+      await db.rawInsert('''
+      INSERT INTO karyawan (nama_karyawan, pin, peran)
+      VALUES ('Siti Supervisor', '8888', 'Supervisor')
+      ''');
     }
   }
 
@@ -124,7 +128,24 @@ class DatabaseHelper {
   // 2. READ: Mengambil Seluruh Karyawan
   Future<List<Karyawan>> getAllKaryawan() async {
     final db = await instance.database;
-    final result = await db.query('karyawan', orderBy: 'id ASC');
+    var result = await db.query('karyawan', orderBy: 'id ASC');
+    if (result.isEmpty) {
+      await db.rawInsert('''
+      INSERT INTO karyawan (nama_karyawan, pin, peran)
+      VALUES ('Ahmad Kasir', '1234', 'Kasir')
+      ''');
+      await db.rawInsert('''
+      INSERT INTO karyawan (nama_karyawan, pin, peran)
+      VALUES ('Siti Supervisor', '8888', 'Supervisor')
+      ''');
+      result = await db.query('karyawan', orderBy: 'id ASC');
+    } else if (result.length == 1 && result.first['nama_karyawan'] == 'Ahmad Kasir') {
+      await db.rawInsert('''
+      INSERT INTO karyawan (nama_karyawan, pin, peran)
+      VALUES ('Siti Supervisor', '8888', 'Supervisor')
+      ''');
+      result = await db.query('karyawan', orderBy: 'id ASC');
+    }
     return result.map((json) => Karyawan.fromMap(json)).toList();
   }
 

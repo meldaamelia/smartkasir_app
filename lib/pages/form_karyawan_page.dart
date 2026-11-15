@@ -27,7 +27,7 @@ class _FormKaryawanPageState extends State<FormKaryawanPage> {
 
   // Nilai terpilih dropdown peran
   String _peranTerpilih = 'Kasir';
-  final List<String> _daftarPeran = ['Kasir', 'Admin', 'Manajer'];
+  final List<String> _daftarPeran = ['Kasir', 'Admin', 'Manajer', 'Supervisor'];
 
   // Status visual tombol proses simpan
   bool _sedangMenyimpan = false;
