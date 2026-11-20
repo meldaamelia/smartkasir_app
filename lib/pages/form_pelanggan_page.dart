@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 // Mengimpor format waktu internasional
 import 'package:intl/intl.dart';
+
 // Mengimpor model data Pelanggan dan pembantu database SQLite
 import '../models/pelanggan.dart';
 import '../helpers/database_helper.dart';
@@ -92,8 +93,9 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content:
-                  Text('Layanan GPS perangkat belum aktif. Silakan aktifkan GPS Anda.'),
+              content: Text(
+                'Layanan GPS perangkat belum aktif. Silakan aktifkan GPS Anda.',
+              ),
               backgroundColor: Colors.orange,
             ),
           );
@@ -127,7 +129,8 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text(
-                  'Izin lokasi ditolak permanen. Buka pengaturan aplikasi untuk mengizinkan.'),
+                'Izin lokasi ditolak permanen. Buka pengaturan aplikasi untuk mengizinkan.',
+              ),
               backgroundColor: Colors.red,
             ),
           );
@@ -272,7 +275,10 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
                     Expanded(
                       child: Text(
                         'Rekam nomor WhatsApp untuk pengiriman nota digital dan simpan titik koordinat GPS untuk rute pengantaran pesanan.',
-                        style: TextStyle(fontSize: 12, color: Color(0xFF334155)),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF334155),
+                        ),
                       ),
                     ),
                   ],
@@ -344,7 +350,8 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
                 maxLines: 2,
                 decoration: const InputDecoration(
                   labelText: 'Alamat Domisili / Pengantaran Barang *',
-                  hintText: 'Contoh: Jl. Kayu Tangi 1 Jalur 2 No. 15, Banjarmasin',
+                  hintText:
+                      'Contoh: Jl. Kayu Tangi 1 Jalur 2 No. 15, Banjarmasin',
                   prefixIcon: Icon(Icons.home_outlined),
                   border: OutlineInputBorder(),
                 ),
@@ -387,7 +394,10 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
                       const SizedBox(height: 6),
                       const Text(
                         'Ambil posisi saat ini jika Anda berada di lokasi fisik rumah/toko pelanggan:',
-                        style: TextStyle(fontSize: 12, color: Color(0xFF64748B)),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF64748B),
+                        ),
                       ),
                       const SizedBox(height: 10),
 
@@ -410,7 +420,9 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
                               : 'Ambil Koordinat GPS Saat Ini',
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF0D9488), // Teal Aksen
+                          backgroundColor: const Color(
+                            0xFF0D9488,
+                          ), // Teal Aksen
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(
@@ -428,9 +440,9 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
                               controller: _latitudeController,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
-                                decimal: true,
-                                signed: true,
-                              ),
+                                    decimal: true,
+                                    signed: true,
+                                  ),
                               decoration: const InputDecoration(
                                 labelText: 'Latitude',
                                 hintText: '-3.298280',
@@ -445,9 +457,9 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
                               controller: _longitudeController,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
-                                decimal: true,
-                                signed: true,
-                              ),
+                                    decimal: true,
+                                    signed: true,
+                                  ),
                               decoration: const InputDecoration(
                                 labelText: 'Longitude',
                                 hintText: '114.588820',
@@ -478,7 +490,10 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
                 ),
                 child: Text(
                   isEdit ? 'Perbarui Data Pelanggan' : 'Simpan Pelanggan Baru',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -488,4 +503,3 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
     );
   }
 }
-
