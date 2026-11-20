@@ -138,7 +138,9 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
 
       // 4. Mengunci titik koordinat posisi saat ini dengan akurasi tinggi
       Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+        ),
       );
 
       // 5. Mengisi field teks koordinat secara otomatis

@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 // Mengimpor pustaka pemformat angka dan mata uang
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
 // Mengimpor model data dan database helper
 import '../models/produk.dart';
@@ -44,14 +43,7 @@ class _FormProdukPageState extends State<FormProdukPage> {
   // Status proses simpan
   bool _sedangMenyimpan = false;
 
-  // Format rupiah tampilan
-  final _currencyFormat = NumberFormat.currency(
-    locale: 'id_ID',
-    symbol: 'Rp ',
-    decimalDigits: 0,
-  );
-
-  // KONTROL PERCABANGAN: Cekfinal List<String> _kategoriList = ['Makanan', 'Minuman', 'Snack', 'Dessert', 'Lainnya']; apakah halaman berada dalam Mode Edit
+  // KONTROL PERCABANGAN: Cek apakah halaman berada dalam Mode Edit
   bool get _isEditMode => widget.produk != null;
 
   @override
@@ -244,7 +236,7 @@ class _FormProdukPageState extends State<FormProdukPage> {
 
               // 3. DROPDOWN KATEGORI PRODUK
               DropdownButtonFormField<String>(
-                value: _kategoriTerpilih,
+                initialValue: _kategoriTerpilih,
                 decoration: InputDecoration(
                   labelText: 'Kelompok Kategori',
                   prefixIcon: const Icon(Icons.category_outlined),
@@ -283,8 +275,9 @@ class _FormProdukPageState extends State<FormProdukPage> {
                       validator: (val) {
                         if (val == null || val.isEmpty) return 'Wajib diisi';
                         if (double.tryParse(val) == null ||
-                            double.parse(val) <= 0)
+                            double.parse(val) <= 0) {
                           return 'Harus > 0';
+                        }
                         return null;
                       },
                     ),
