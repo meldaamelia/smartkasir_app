@@ -64,7 +64,10 @@ class _KelolaPelangganPageState extends State<KelolaPelangganPage> {
 
   // Fungsi membuka rute navigasi pengantaran ke aplikasi Google Maps luar
   Future<void> _bukaRuteGoogleMaps(
-      double latitude, double longitude, String namaPelanggan) async {
+    double latitude,
+    double longitude,
+    String namaPelanggan,
+  ) async {
     // Membangun URL resmi Google Maps Directions API (T2: rute khusus motor)
     final url = Uri.parse(
       'https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude&travelmode=two_wheeler',
@@ -120,7 +123,8 @@ class _KelolaPelangganPageState extends State<KelolaPelangganPage> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                        'Pelanggan "${pelanggan.namaPelanggan}" berhasil dihapus.'),
+                      'Pelanggan "${pelanggan.namaPelanggan}" berhasil dihapus.',
+                    ),
                     backgroundColor: Colors.orange,
                   ),
                 );
@@ -167,8 +171,10 @@ class _KelolaPelangganPageState extends State<KelolaPelangganPage> {
                         },
                       )
                     : null,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 0,
+                  horizontal: 16,
+                ),
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -188,284 +194,290 @@ class _KelolaPelangganPageState extends State<KelolaPelangganPage> {
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : _pelangganList.isEmpty
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.people_outline,
-                              size: 64,
-                              color: Colors.grey.shade400,
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              'Belum ada data pelanggan.',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey.shade600,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            const Text(
-                              'Klik tombol (+) di bawah untuk menambah member baru.',
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey),
-                            ),
-                          ],
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.people_outline,
+                          size: 64,
+                          color: Colors.grey.shade400,
                         ),
-                      )
-                    : ListView.builder(
-                        padding: const EdgeInsets.all(12),
-                        itemCount: _pelangganList.length,
-                        itemBuilder: (context, index) {
-                          final p = _pelangganList[index];
-                          final hasGps = p.hasLocation;
+                        const SizedBox(height: 12),
+                        Text(
+                          'Belum ada data pelanggan.',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey.shade600,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        const Text(
+                          'Klik tombol (+) di bawah untuk menambah member baru.',
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.all(12),
+                    itemCount: _pelangganList.length,
+                    itemBuilder: (context, index) {
+                      final p = _pelangganList[index];
+                      final hasGps = p.hasLocation;
 
-                          return Card(
-                            elevation: 1.5,
-                            margin: const EdgeInsets.only(bottom: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(color: Colors.grey.shade200),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(14.0),
-                              child: Column(
+                      return Card(
+                        elevation: 1.5,
+                        margin: const EdgeInsets.only(bottom: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(color: Colors.grey.shade200),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Baris Header: Avatar Inisial, Nama, dan Badge Kode
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Baris Header: Avatar Inisial, Nama, dan Badge Kode
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // Lingkaran Inisial Nama
-                                      CircleAvatar(
-                                        radius: 20,
-                                        backgroundColor: const Color(0xFF1E3A8A)
-                                            .withValues(alpha: 0.1),
-                                        child: Text(
-                                          p.namaPelanggan.isNotEmpty
-                                              ? p.namaPelanggan[0].toUpperCase()
-                                              : 'P',
+                                  // Lingkaran Inisial Nama
+                                  CircleAvatar(
+                                    radius: 20,
+                                    backgroundColor: const Color(0xFF1E3A8A)
+                                        .withValues(alpha: 0.1),
+                                    child: Text(
+                                      p.namaPelanggan.isNotEmpty
+                                          ? p.namaPelanggan[0].toUpperCase()
+                                          : 'P',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFF1E3A8A),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  // Nama & Waktu Terdaftar
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          p.namaPelanggan,
                                           style: const TextStyle(
+                                            fontSize: 15,
                                             fontWeight: FontWeight.bold,
-                                            color: Color(0xFF1E3A8A),
+                                            color: Color(0xFF0F172A),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          'Terdaftar: ${p.createdAt}',
+                                          style: const TextStyle(
+                                            fontSize: 11,
+                                            color: Color(0xFF64748B),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  // Badge Kode Member
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 3,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF0D9488)
+                                          .withValues(alpha: 0.12),
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(
+                                        color: const Color(0xFF0D9488),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      p.kodePelanggan,
+                                      style: const TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFF0D9488),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Divider(height: 18),
+
+                              // Baris Kontak WhatsApp
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.phone,
+                                    size: 16,
+                                    color: Color(0xFF1E3A8A),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    p.nomorWa,
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF334155),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+
+                              // Baris Alamat Domisili
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Icon(
+                                    Icons.place,
+                                    size: 16,
+                                    color: Color(0xFF64748B),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Expanded(
+                                    child: Text(
+                                      p.alamat,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF475569),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+
+                              // Baris Tombol Aksi & Navigasi GPS
+                              Row(
+                                children: [
+                                  // Status Koordinat GPS & Tombol Rute Maps
+                                  if (hasGps)
+                                    Expanded(
+                                      child: ElevatedButton.icon(
+                                        onPressed: () => _bukaRuteGoogleMaps(
+                                          p.latitude!,
+                                          p.longitude!,
+                                          p.namaPelanggan,
+                                        ),
+                                        icon: const Icon(
+                                          Icons.directions,
+                                          size: 16,
+                                        ),
+                                        label: const Text(
+                                          'Rute Google Maps',
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: const Color(
+                                            0xFF0D9488,
+                                          ), // Teal Maps
+                                          foregroundColor: Colors.white,
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 8,
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              6,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(width: 12),
-                                      // Nama & Waktu Terdaftar
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                    )
+                                  else
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 8,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade100,
+                                          borderRadius: BorderRadius.circular(
+                                            6,
+                                          ),
+                                          border: Border.all(
+                                            color: Colors.grey.shade300,
+                                          ),
+                                        ),
+                                        child: const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              p.namaPelanggan,
-                                              style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xFF0F172A),
-                                              ),
+                                            Icon(
+                                              Icons.location_off,
+                                              size: 14,
+                                              color: Colors.grey,
                                             ),
-                                            const SizedBox(height: 2),
+                                            SizedBox(width: 4),
                                             Text(
-                                              'Terdaftar: ${p.createdAt}',
-                                              style: const TextStyle(
+                                              'GPS Belum Terekam',
+                                              style: TextStyle(
                                                 fontSize: 11,
-                                                color: Color(0xFF64748B),
+                                                color: Colors.grey,
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                      // Badge Kode Member
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 3,
+                                    ),
+                                  const SizedBox(width: 8),
+
+                                  // Tombol Edit
+                                  IconButton.filledTonal(
+                                    onPressed: () async {
+                                      final refresh = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (ctx) =>
+                                              FormPelangganPage(pelanggan: p),
                                         ),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFF0D9488)
-                                              .withValues(alpha: 0.12),
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                          border: Border.all(
-                                            color: const Color(0xFF0D9488),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          p.kodePelanggan,
-                                          style: const TextStyle(
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xFF0D9488),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                      );
+                                      if (refresh == true) {
+                                        _muatDataPelanggan();
+                                      }
+                                    },
+                                    icon: const Icon(Icons.edit, size: 18),
+                                    tooltip: 'Edit Data Pelanggan',
+                                    style: IconButton.styleFrom(
+                                      backgroundColor: Colors.blue.shade50,
+                                      foregroundColor: const Color(0xFF1E3A8A),
+                                    ),
                                   ),
-                                  const Divider(height: 18),
 
-                                  // Baris Kontak WhatsApp
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.phone,
-                                          size: 16, color: Color(0xFF1E3A8A)),
-                                      const SizedBox(width: 6),
-                                      Text(
-                                        p.nomorWa,
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF334155),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 6),
-
-                                  // Baris Alamat Domisili
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Icon(Icons.place,
-                                          size: 16, color: Color(0xFF64748B)),
-                                      const SizedBox(width: 6),
-                                      Expanded(
-                                        child: Text(
-                                          p.alamat,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF475569),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-
-                                  // Baris Tombol Aksi & Navigasi GPS
-                                  Row(
-                                    children: [
-                                      // Status Koordinat GPS & Tombol Rute Maps
-                                      if (hasGps)
-                                        Expanded(
-                                          child: ElevatedButton.icon(
-                                            onPressed: () =>
-                                                _bukaRuteGoogleMaps(
-                                              p.latitude!,
-                                              p.longitude!,
-                                              p.namaPelanggan,
-                                            ),
-                                            icon: const Icon(Icons.directions,
-                                                size: 16),
-                                            label: const Text(
-                                              'Rute Google Maps',
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color(
-                                                  0xFF0D9488), // Teal Maps
-                                              foregroundColor: Colors.white,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 10,
-                                                vertical: 8,
-                                              ),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(6),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      else
-                                        Expanded(
-                                          child: Container(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                              vertical: 8,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey.shade100,
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                              border: Border.all(
-                                                color: Colors.grey.shade300,
-                                              ),
-                                            ),
-                                            child: const Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(Icons.location_off,
-                                                    size: 14,
-                                                    color: Colors.grey),
-                                                SizedBox(width: 4),
-                                                Text(
-                                                  'GPS Belum Terekam',
-                                                  style: TextStyle(
-                                                    fontSize: 11,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      const SizedBox(width: 8),
-
-                                      // Tombol Edit
-                                      IconButton.filledTonal(
-                                        onPressed: () async {
-                                          final refresh = await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (ctx) =>
-                                                  FormPelangganPage(
-                                                      pelanggan: p),
-                                            ),
-                                          );
-                                          if (refresh == true) {
-                                            _muatDataPelanggan();
-                                          }
-                                        },
-                                        icon: const Icon(Icons.edit, size: 18),
-                                        tooltip: 'Edit Data Pelanggan',
-                                        style: IconButton.styleFrom(
-                                          backgroundColor: Colors.blue.shade50,
-                                          foregroundColor:
-                                              const Color(0xFF1E3A8A),
-                                        ),
-                                      ),
-
-                                      // Tombol Hapus
-                                      IconButton.filledTonal(
-                                        onPressed: () =>
-                                            _konfirmasiHapusPelanggan(p),
-                                        icon: const Icon(Icons.delete_outline,
-                                            size: 18),
-                                        tooltip: 'Hapus Pelanggan',
-                                        style: IconButton.styleFrom(
-                                          backgroundColor: Colors.red.shade50,
-                                          foregroundColor: Colors.red,
-                                        ),
-                                      ),
-                                    ],
+                                  // Tombol Hapus
+                                  IconButton.filledTonal(
+                                    onPressed: () =>
+                                        _konfirmasiHapusPelanggan(p),
+                                    icon: const Icon(
+                                      Icons.delete_outline,
+                                      size: 18,
+                                    ),
+                                    tooltip: 'Hapus Pelanggan',
+                                    style: IconButton.styleFrom(
+                                      backgroundColor: Colors.red.shade50,
+                                      foregroundColor: Colors.red,
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
-                          );
-                        },
-                      ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
@@ -475,9 +487,7 @@ class _KelolaPelangganPageState extends State<KelolaPelangganPage> {
         onPressed: () async {
           final refresh = await Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (ctx) => const FormPelangganPage(),
-            ),
+            MaterialPageRoute(builder: (ctx) => const FormPelangganPage()),
           );
           if (refresh == true) {
             _muatDataPelanggan();
@@ -491,4 +501,3 @@ class _KelolaPelangganPageState extends State<KelolaPelangganPage> {
     );
   }
 }
-
