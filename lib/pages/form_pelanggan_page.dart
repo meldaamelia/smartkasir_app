@@ -183,12 +183,20 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
     final double? lat = double.tryParse(_latitudeController.text.trim());
     final double? lng = double.tryParse(_longitudeController.text.trim());
 
+    // T1: Normalisasi otomatis nomor WhatsApp (08... -> 628...)
+    String nomorWa = _nomorWaController.text.trim();
+    if (nomorWa.startsWith('08')) {
+      nomorWa = '628${nomorWa.substring(2)}';
+    } else if (nomorWa.startsWith('+628')) {
+      nomorWa = '628${nomorWa.substring(4)}';
+    }
+
     // Membangun objek Pelanggan
     final pelangganBaru = Pelanggan(
       id: isEdit ? widget.pelanggan!.id : null,
       kodePelanggan: _kodeController.text.trim(),
       namaPelanggan: _namaController.text.trim(),
-      nomorWa: _nomorWaController.text.trim(),
+      nomorWa: nomorWa,
       alamat: _alamatController.text.trim(),
       latitude: lat,
       longitude: lng,
@@ -478,3 +486,4 @@ class _FormPelangganPageState extends State<FormPelangganPage> {
     );
   }
 }
+

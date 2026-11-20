@@ -59,7 +59,8 @@ class DatabaseHelper {
   // Seeder Data Produk Awal: Memastikan 6 produk bawaan selalu tersedia dan data lama tidak hilang
   Future<void> _seedProdukAwal(Database db) async {
     try {
-      final count = Sqflite.firstIntValue(
+      final count =
+          Sqflite.firstIntValue(
             await db.rawQuery('SELECT COUNT(*) FROM produk'),
           ) ??
           0;
@@ -172,7 +173,8 @@ class DatabaseHelper {
       )
       ''');
 
-      final countKaryawan = Sqflite.firstIntValue(
+      final countKaryawan =
+          Sqflite.firstIntValue(
             await db.rawQuery('SELECT COUNT(*) FROM karyawan'),
           ) ??
           0;
@@ -203,7 +205,8 @@ class DatabaseHelper {
       )
       ''');
 
-      final countPelanggan = Sqflite.firstIntValue(
+      final countPelanggan =
+          Sqflite.firstIntValue(
             await db.rawQuery('SELECT COUNT(*) FROM pelanggan'),
           ) ??
           0;

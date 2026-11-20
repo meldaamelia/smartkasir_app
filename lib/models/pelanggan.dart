@@ -70,3 +70,4 @@ class Pelanggan {
     return 'Belum terekam';
   }
 }
+
